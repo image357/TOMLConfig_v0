@@ -2,7 +2,7 @@
 // Created by koepke on 2/26/22.
 //
 
-#include "IConfig.h"
+#include "TOMLConfig/IConfig.h"
 
 namespace tomlc {
 

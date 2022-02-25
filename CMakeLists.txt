@@ -8,11 +8,17 @@ find_package(toml11 REQUIRED)
 add_library(
         TOMLConfig
         STATIC
-        src/IConfig.cpp src/IConfig.h
+        src/IConfig.cpp include/TOMLConfig/IConfig.h
 )
 
 target_link_libraries(
         TOMLConfig
         PRIVATE
         toml11:toml11
+)
+
+target_include_directories(
+        TOMLConfig
+        PUBLIC
+        include
 )
