@@ -14,7 +14,7 @@ add_library(
 target_link_libraries(
         TOMLConfig
         PRIVATE
-        toml11:toml11
+        toml11::toml11
 )
 
 target_include_directories(

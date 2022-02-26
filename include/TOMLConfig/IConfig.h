@@ -5,6 +5,8 @@
 #ifndef TOMLCONFIG_ICONFIG_H
 #define TOMLCONFIG_ICONFIG_H
 
+#include <toml.hpp>
+
 namespace tomlc {
 
 class IConfig {
