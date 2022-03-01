@@ -3,6 +3,8 @@
 //
 
 #include "GlobalTest.h"
+#include <iostream>
+#include <toml.hpp>
 
 void GlobalTest::SetUp()
 {
@@ -16,5 +18,6 @@ void GlobalTest::TearDown()
 
 TEST_F(GlobalTest, succeed)
 {
+    auto basic = toml::parse(RESOURCE_PATH "./basic.toml");
     SUCCEED();
 }

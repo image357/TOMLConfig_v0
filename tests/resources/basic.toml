@@ -1,0 +1,18 @@
+a = 1
+b = 2.0
+c = "c"
+
+[table1]
+a = 3
+b = 4.0
+c = "c"
+
+[table2]
+a = 5
+b = 6.0
+c = "cc"
+
+    [table2.subtable1]
+    d = 7
+    e = 8.0
+    f = "ccc"
