@@ -3,6 +3,11 @@ project(TOMLConfig VERSION 1.0.0)
 
 # dependencies
 find_package(toml11 REQUIRED)
+find_package(GTest REQUIRED)
+
+# submodules
+add_subdirectory(docs EXCLUDE_FROM_ALL)
+add_subdirectory(tests EXCLUDE_FROM_ALL)
 
 # main target
 add_library(
