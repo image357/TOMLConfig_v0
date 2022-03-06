@@ -28,7 +28,7 @@ target_include_directories(
         TOMLConfig
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}>
         INTERFACE
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src> # for tests
 )
