@@ -13,13 +13,16 @@ add_subdirectory(tests EXCLUDE_FROM_ALL)
 add_library(
         TOMLConfig
         STATIC
-        src/IConfig.cpp include/TOMLConfig/IConfig.h
-        src/ITOMLFile.cpp include/TOMLConfig/ITOMLFile.h
+        include/TOMLConfig/resource/IResource.h
+        include/TOMLConfig/resource/ResourceType.h
+        src/resource/abstract/RootResource.cpp include/TOMLConfig/resource/abstract/RootResource.h
+        src/resource/abstract/NodeResource.cpp include/TOMLConfig/resource/abstract/NodeResource.h
+        src/resource/abstract/LeafResource.cpp include/TOMLConfig/resource/abstract/LeafResource.h
 )
 
 target_link_libraries(
         TOMLConfig
-        PRIVATE
+        PUBLIC
         toml11::toml11
 )
 
