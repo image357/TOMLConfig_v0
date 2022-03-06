@@ -18,6 +18,5 @@ void GlobalTest::TearDown()
 
 TEST_F(GlobalTest, succeed)
 {
-    auto basic = toml::parse(RESOURCE_PATH "./basic.toml");
     SUCCEED();
 }
