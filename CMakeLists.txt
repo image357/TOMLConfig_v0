@@ -14,6 +14,7 @@ add_library(
         TOMLConfig
         STATIC
         src/IConfig.cpp include/TOMLConfig/IConfig.h
+        src/ITOMLFile.cpp include/TOMLConfig/ITOMLFile.h
 )
 
 target_link_libraries(
@@ -22,8 +23,12 @@ target_link_libraries(
         toml11::toml11
 )
 
+include(GNUInstallDirs)
 target_include_directories(
         TOMLConfig
         PUBLIC
-        include
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src> # for tests
 )

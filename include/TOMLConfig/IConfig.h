@@ -7,7 +7,7 @@
 
 #include <toml.hpp>
 
-namespace tomlc {
+namespace config {
 
 class IConfig {
 

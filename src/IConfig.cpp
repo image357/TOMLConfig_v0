@@ -4,6 +4,6 @@
 
 #include "TOMLConfig/IConfig.h"
 
-namespace tomlc {
+namespace config {
 
 }
