@@ -6,8 +6,8 @@
 
 namespace config::resource {
 
-NodeResource::NodeResource(const std::string& name, const std::shared_ptr<IResource>& parent)
-        :name(name), parent(parent) { }
+NodeResource::NodeResource(const std::string& name)
+        :name(name) { }
 
 std::string NodeResource::get_name() const
 {
@@ -22,6 +22,20 @@ std::string NodeResource::get_path() const
 ResourceType NodeResource::get_type() const
 {
     return ResourceType::Node;
+}
+
+void NodeResource::add_resource(const std::shared_ptr<IResource>& resource)
+{
+    auto[it, flag] = children.try_emplace(resource->get_name(), resource);
+    if (!flag) {
+        throw AbstractResourceException("Cannot add resource");
+    }
+    resource->set_parent(this);
+}
+
+void NodeResource::set_parent(IResource* resource)
+{
+    parent = resource;
 }
 
 }

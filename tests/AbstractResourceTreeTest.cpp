@@ -25,10 +25,47 @@ TEST_F(AbstractResourceTreeTest, constructRoot)
 
 TEST_F(AbstractResourceTreeTest, constructNode)
 {
-    NodeResource resource("name", mock_resource_ptr);
+    NodeResource resource("name");
 }
 
 TEST_F(AbstractResourceTreeTest, constructLeaf)
 {
-    LeafResource resource("name", mock_resource_ptr);
+    LeafResource resource("name");
+}
+
+TEST_F(AbstractResourceTreeTest, makeSimpleTree)
+{
+    auto root_ptr = std::make_shared<RootResource>();
+
+    auto node1_ptr = std::make_shared<NodeResource>("node1");
+    auto node2_ptr = std::make_shared<NodeResource>("node2");
+    root_ptr->add_resource(node1_ptr);
+    root_ptr->add_resource(node2_ptr);
+
+    auto leaf11_ptr = std::make_shared<LeafResource>("leaf11");
+    auto leaf12_ptr = std::make_shared<LeafResource>("leaf12");
+    node1_ptr->add_resource(leaf11_ptr);
+    node1_ptr->add_resource(leaf12_ptr);
+
+    auto leaf21_ptr = std::make_shared<LeafResource>("leaf21");
+    auto leaf22_ptr = std::make_shared<LeafResource>("leaf22");
+    auto leaf23_ptr = std::make_shared<LeafResource>("leaf23");
+    node2_ptr->add_resource(leaf21_ptr);
+    node2_ptr->add_resource(leaf22_ptr);
+    node2_ptr->add_resource(leaf23_ptr);
+}
+
+TEST_F(AbstractResourceTreeTest, throwOnSameNameInsert)
+{
+    auto root_ptr = std::make_shared<RootResource>();
+
+    auto node1_ptr = std::make_shared<NodeResource>("node1");
+    auto node2_ptr = std::make_shared<NodeResource>("node1");
+    root_ptr->add_resource(node1_ptr);
+    ASSERT_THROW(root_ptr->add_resource(node2_ptr), AbstractResourceException);
+
+    auto leaf1_ptr = std::make_shared<LeafResource>("leaf1");
+    auto leaf2_ptr = std::make_shared<LeafResource>("leaf1");
+    node1_ptr->add_resource(leaf1_ptr);
+    ASSERT_THROW(node1_ptr->add_resource(leaf2_ptr), AbstractResourceException);
 }

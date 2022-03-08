@@ -6,8 +6,8 @@
 
 namespace config::resource {
 
-LeafResource::LeafResource(const std::string& name, const std::shared_ptr<IResource>& parent)
-        :name(name), parent(parent) { }
+LeafResource::LeafResource(const std::string& name)
+        :name(name) { }
 
 std::string LeafResource::get_name() const
 {
@@ -22,6 +22,11 @@ std::string LeafResource::get_path() const
 ResourceType LeafResource::get_type() const
 {
     return ResourceType::Leaf;
+}
+
+void LeafResource::set_parent(IResource* resource)
+{
+    parent = resource;
 }
 
 }

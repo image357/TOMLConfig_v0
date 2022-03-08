@@ -7,13 +7,15 @@
 
 #include <memory>
 #include <vector>
+#include <unordered_map>
 #include "TOMLConfig/resource/IResource.h"
+#include "AbstractResourceException.h"
 
 namespace config::resource {
 
 class RootResource : public IResource {
 private:
-    std::vector<std::shared_ptr<IResource>> children;
+    std::unordered_map<std::string, std::shared_ptr<IResource>> children;
 
 public:
     RootResource();
@@ -21,6 +23,11 @@ public:
     std::string get_name() const override;
     std::string get_path() const override;
     ResourceType get_type() const override;
+
+    void add_resource(const std::shared_ptr<IResource>& resource);
+
+private:
+    void set_parent(IResource* resource) override;
 };
 
 }

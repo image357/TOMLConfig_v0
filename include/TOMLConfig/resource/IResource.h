@@ -17,6 +17,12 @@ public:
     virtual std::string get_name() const = 0;
     virtual std::string get_path() const = 0;
     virtual ResourceType get_type() const = 0;
+
+private:
+    virtual void set_parent(IResource* resource) = 0;
+
+    friend class RootResource;
+    friend class NodeResource;
 };
 
 }
