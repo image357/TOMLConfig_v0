@@ -2,10 +2,10 @@ project(tests)
 
 add_executable(
         tests
-        GlobalTest.cpp GlobalTest.h
-        TOML11Test.cpp TOML11Test.h
+        src/GlobalTest.cpp src/GlobalTest.h
+        src/TOML11Test.cpp src/TOML11Test.h
         mocks/MockResource.h
-        AbstractResourceTreeTest.cpp AbstractResourceTreeTest.h
+        src/AbstractResourceTreeTest.cpp src/AbstractResourceTreeTest.h
 )
 
 target_link_libraries(

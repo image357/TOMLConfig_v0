@@ -9,7 +9,7 @@
 #include <gmock/gmock.h>
 #include <memory>
 
-#include "mocks/MockResource.h"
+#include "../mocks/MockResource.h"
 
 using namespace config::resource;
 
