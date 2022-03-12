@@ -70,6 +70,20 @@ TEST_F(AbstractResourceTreeTest, throwOnSameNameInsert)
     ASSERT_THROW(node1_ptr->add_resource(leaf2_ptr), AbstractResourceException);
 }
 
+TEST_F(AbstractResourceTreeTest, testNameHandling)
+{
+    auto root_ptr = std::make_shared<RootResource>();
+    ASSERT_EQ(root_ptr->get_name(), "");
+
+    auto node_ptr = std::make_shared<NodeResource>("node");
+    root_ptr->add_resource(node_ptr);
+    ASSERT_EQ(node_ptr->get_name(), "node");
+
+    auto leaf_ptr = std::make_shared<LeafResource>("leaf");
+    node_ptr->add_resource(leaf_ptr);
+    ASSERT_EQ(leaf_ptr->get_name(), "leaf");
+}
+
 TEST_F(AbstractResourceTreeTest, testPathHandling)
 {
     auto root_ptr = std::make_shared<RootResource>();
