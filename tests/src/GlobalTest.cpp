@@ -21,7 +21,7 @@ TEST_F(GlobalTest, succeed)
     SUCCEED();
 }
 
-TEST_F(GlobalTest, virtualDestructorChain)
+TEST_F(GlobalTest, testVirtualDestructorChain)
 {
     int i = 0;
     class First {
