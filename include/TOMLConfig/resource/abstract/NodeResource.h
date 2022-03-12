@@ -24,6 +24,7 @@ public:
     std::string get_name() const override;
     std::string get_path() const override;
     ResourceType get_type() const override;
+    toml::value as_toml() const override;
 
     void add_resource(const std::shared_ptr<IResource>& resource);
 

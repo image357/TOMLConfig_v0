@@ -29,4 +29,9 @@ void LeafResource::set_parent(IResource* resource)
     parent = resource;
 }
 
+toml::value LeafResource::as_toml() const
+{
+    return toml::value();
+}
+
 }

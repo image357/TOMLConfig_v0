@@ -22,6 +22,7 @@ public:
     std::string get_name() const override;
     std::string get_path() const override;
     ResourceType get_type() const override;
+    toml::value as_toml() const override;
 
 private:
     void set_parent(IResource* resource) override;

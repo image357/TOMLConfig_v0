@@ -38,4 +38,13 @@ void NodeResource::set_parent(IResource* resource)
     parent = resource;
 }
 
+toml::value NodeResource::as_toml() const
+{
+    toml::value value;
+    for (const auto& it : children) {
+        value[it.second->get_name()] = it.second->as_toml();
+    }
+    return value;
+}
+
 }

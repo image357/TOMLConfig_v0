@@ -6,6 +6,7 @@
 #define TOMLCONFIG_IRESOURCE_H
 
 #include <string>
+#include <toml.hpp>
 #include "ResourceType.h"
 
 namespace config::resource {
@@ -17,6 +18,7 @@ public:
     virtual std::string get_name() const = 0;
     virtual std::string get_path() const = 0;
     virtual ResourceType get_type() const = 0;
+    virtual toml::value as_toml() const = 0;
 
 private:
     virtual void set_parent(IResource* resource) = 0;

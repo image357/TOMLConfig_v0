@@ -15,6 +15,7 @@ public:
     MOCK_METHOD(std::string, get_path, (), (const, override));
     MOCK_METHOD(ResourceType, get_type, (), (const, override));
     MOCK_METHOD(void, set_parent, (IResource*), (override));
+    MOCK_METHOD(toml::value, as_toml, (), (const, override));
 };
 
 }
