@@ -6,6 +6,7 @@ add_executable(
         src/TOML11Test.cpp src/TOML11Test.h
         mocks/MockResource.h
         src/AbstractResourceTreeTest.cpp src/AbstractResourceTreeTest.h
+        src/FilesystemResourceTreeTest.cpp src/FilesystemResourceTreeTest.h
 )
 
 target_link_libraries(

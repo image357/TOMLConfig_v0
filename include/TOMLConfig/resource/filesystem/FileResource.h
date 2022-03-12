@@ -10,7 +10,8 @@
 namespace config::resource {
 
 class FileResource : public LeafResource {
-
+public:
+    FileResource(const std::string& filepath);
 };
 
 }
