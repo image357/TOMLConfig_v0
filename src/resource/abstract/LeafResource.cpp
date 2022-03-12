@@ -31,7 +31,7 @@ void LeafResource::set_parent(IResource* resource)
 
 toml::value LeafResource::as_toml() const
 {
-    return toml::value();
+    return toml::table();
 }
 
 }

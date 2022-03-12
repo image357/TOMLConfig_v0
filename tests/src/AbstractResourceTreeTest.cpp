@@ -134,3 +134,64 @@ TEST_F(AbstractResourceTreeTest, throwOnRootSetParent)
     auto root2_ptr = std::make_shared<RootResource>();
     ASSERT_THROW(root1_ptr->add_resource(root2_ptr), AbstractResourceException);
 }
+
+TEST_F(AbstractResourceTreeTest, testAsToml)
+{
+    auto root_ptr = std::make_shared<RootResource>();
+
+    auto node1_ptr = std::make_shared<NodeResource>("node1");
+    auto node2_ptr = std::make_shared<NodeResource>("node2");
+    root_ptr->add_resource(node1_ptr);
+    root_ptr->add_resource(node2_ptr);
+
+    auto leaf11_ptr = std::make_shared<LeafResource>("leaf11");
+    auto leaf12_ptr = std::make_shared<LeafResource>("leaf12");
+    node1_ptr->add_resource(leaf11_ptr);
+    node1_ptr->add_resource(leaf12_ptr);
+
+    auto leaf21_ptr = std::make_shared<LeafResource>("leaf21");
+    auto leaf22_ptr = std::make_shared<LeafResource>("leaf22");
+    auto leaf23_ptr = std::make_shared<LeafResource>("leaf23");
+    node2_ptr->add_resource(leaf21_ptr);
+    node2_ptr->add_resource(leaf22_ptr);
+    node2_ptr->add_resource(leaf23_ptr);
+
+    auto root_toml = root_ptr->as_toml();
+    toml::find(root_toml, "node1");
+    toml::find(root_toml, "node2");
+    toml::find(toml::find(root_toml, "node1"), "leaf11");
+    toml::find(toml::find(root_toml, "node1"), "leaf12");
+    toml::find(toml::find(root_toml, "node2"), "leaf21");
+    toml::find(toml::find(root_toml, "node2"), "leaf22");
+    toml::find(toml::find(root_toml, "node2"), "leaf23");
+    ASSERT_EQ(root_toml.size(), 2);
+    ASSERT_EQ(toml::find(root_toml, "node1").size(), 2);
+    ASSERT_EQ(toml::find(root_toml, "node2").size(), 3);
+    ASSERT_EQ(toml::find(toml::find(root_toml, "node1"), "leaf11").size(), 0);
+    ASSERT_EQ(toml::find(toml::find(root_toml, "node1"), "leaf12").size(), 0);
+    ASSERT_EQ(toml::find(toml::find(root_toml, "node2"), "leaf21").size(), 0);
+    ASSERT_EQ(toml::find(toml::find(root_toml, "node2"), "leaf22").size(), 0);
+    ASSERT_EQ(toml::find(toml::find(root_toml, "node2"), "leaf23").size(), 0);
+
+    auto node1_toml = node1_ptr->as_toml();
+    toml::find(node1_toml, "leaf11");
+    toml::find(node1_toml, "leaf12");
+    ASSERT_EQ(node1_toml.size(), 2);
+    ASSERT_EQ(toml::find(node1_toml, "leaf11").size(), 0);
+    ASSERT_EQ(toml::find(node1_toml, "leaf12").size(), 0);
+
+    auto node2_toml = node2_ptr->as_toml();
+    toml::find(node2_toml, "leaf21");
+    toml::find(node2_toml, "leaf22");
+    toml::find(node2_toml, "leaf23");
+    ASSERT_EQ(node2_toml.size(), 3);
+    ASSERT_EQ(toml::find(node2_toml, "leaf21").size(), 0);
+    ASSERT_EQ(toml::find(node2_toml, "leaf22").size(), 0);
+    ASSERT_EQ(toml::find(node2_toml, "leaf23").size(), 0);
+
+    auto leaf11_toml = leaf11_ptr->as_toml();
+    ASSERT_EQ(leaf11_toml.size(), 0);
+
+    auto leaf21_toml = leaf21_ptr->as_toml();
+    ASSERT_EQ(leaf21_toml.size(), 0);
+}

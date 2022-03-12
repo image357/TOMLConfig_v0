@@ -39,7 +39,7 @@ void RootResource::set_parent(IResource* resource)
 
 toml::value RootResource::as_toml() const
 {
-    toml::value value;
+    toml::table value;
     for (const auto& it : children) {
         value[it.second->get_name()] = it.second->as_toml();
     }
