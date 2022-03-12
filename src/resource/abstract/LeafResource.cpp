@@ -16,7 +16,7 @@ std::string LeafResource::get_name() const
 
 std::string LeafResource::get_path() const
 {
-    return parent->get_path()+"/"+get_name();
+    return parent->get_path()+get_name();
 }
 
 ResourceType LeafResource::get_type() const

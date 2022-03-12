@@ -16,7 +16,7 @@ std::string NodeResource::get_name() const
 
 std::string NodeResource::get_path() const
 {
-    return parent->get_path()+"/"+get_name();
+    return parent->get_path()+get_name()+"/";
 }
 
 ResourceType NodeResource::get_type() const
