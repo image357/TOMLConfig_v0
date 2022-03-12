@@ -113,3 +113,24 @@ TEST_F(AbstractResourceTreeTest, testPathHandling)
     ASSERT_EQ(leaf22_ptr->get_path(), "/node2/leaf22");
     ASSERT_EQ(leaf23_ptr->get_path(), "/node2/leaf23");
 }
+
+TEST_F(AbstractResourceTreeTest, testTypeHandling)
+{
+    auto root_ptr = std::make_shared<RootResource>();
+    ASSERT_EQ(root_ptr->get_type(), ResourceType::Root);
+
+    auto node_ptr = std::make_shared<NodeResource>("node");
+    root_ptr->add_resource(node_ptr);
+    ASSERT_EQ(node_ptr->get_type(), ResourceType::Node);
+
+    auto leaf_ptr = std::make_shared<LeafResource>("leaf");
+    node_ptr->add_resource(leaf_ptr);
+    ASSERT_EQ(leaf_ptr->get_type(), ResourceType::Leaf);
+}
+
+TEST_F(AbstractResourceTreeTest, throwOnRootSetParent)
+{
+    auto root1_ptr = std::make_shared<RootResource>();
+    auto root2_ptr = std::make_shared<RootResource>();
+    ASSERT_THROW(root1_ptr->add_resource(root2_ptr), AbstractResourceException);
+}
