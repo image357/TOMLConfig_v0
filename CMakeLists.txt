@@ -20,6 +20,8 @@ add_library(
         src/resource/abstract/LeafResource.cpp include/TOMLConfig/resource/abstract/LeafResource.h
         include/TOMLConfig/resource/abstract/AbstractResourceException.h
         src/resource/filesystem/FileResource.cpp include/TOMLConfig/resource/filesystem/FileResource.h
+        src/resource/utils/filesystem.cpp src/resource/utils/filesystem.h
+        include/TOMLConfig/resource/filesystem/FilesystemResourceException.h
 )
 
 target_link_libraries(
