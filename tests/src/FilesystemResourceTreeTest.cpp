@@ -26,6 +26,7 @@ TEST_F(FilesystemResourceTreeTest, convertFilepathToName)
 
 TEST_F(FilesystemResourceTreeTest, constructFileResource)
 {
-    FileResource resource("/some/path/to/file.toml");
-    ASSERT_THROW(FileResource resource("/some/path/to/file.txt");, FilesystemResourceException);
+    FileResource resource(RESOURCE_PATH "basic.toml");
+    ASSERT_THROW(FileResource resource("/some/path/to/file.toml"), FilesystemResourceException);
+    ASSERT_THROW(FileResource resource(RESOURCE_PATH "basic.txt"), FilesystemResourceException);
 }
