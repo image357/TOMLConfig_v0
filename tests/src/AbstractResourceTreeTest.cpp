@@ -194,4 +194,25 @@ TEST_F(AbstractResourceTreeTest, testAsToml)
 
     auto leaf21_toml = leaf21_ptr->as_toml();
     ASSERT_EQ(leaf21_toml.size(), 0);
+
+    std::stringstream root_stream;
+    root_stream << root_ptr->as_toml();
+    ASSERT_EQ(
+            root_stream.str(),
+            "\n"
+            "[node1]\n"
+            "\n"
+            "[node1.leaf11]\n"
+            "\n"
+            "[node1.leaf12]\n"
+            "\n"
+            "[node2]\n"
+            "\n"
+            "[node2.leaf21]\n"
+            "\n"
+            "[node2.leaf22]\n"
+            "\n"
+            "[node2.leaf23]\n"
+            "\n\n"
+    );
 }
