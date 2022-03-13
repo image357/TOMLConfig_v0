@@ -7,16 +7,16 @@
 namespace config::resource {
 
 LeafResource::LeafResource(const std::string& name)
-        :name(name) { }
+        :m_name(name) { }
 
 std::string LeafResource::get_name() const
 {
-    return name;
+    return m_name;
 }
 
 std::string LeafResource::get_path() const
 {
-    return parent->get_path()+get_name();
+    return m_parent->get_path()+get_name();
 }
 
 ResourceType LeafResource::get_type() const
@@ -26,7 +26,7 @@ ResourceType LeafResource::get_type() const
 
 void LeafResource::set_parent(IResource* resource)
 {
-    parent = resource;
+    m_parent = resource;
 }
 
 toml::value LeafResource::as_toml() const

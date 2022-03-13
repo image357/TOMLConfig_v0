@@ -25,7 +25,7 @@ ResourceType RootResource::get_type() const
 
 void RootResource::add_resource(const std::shared_ptr<IResource>& resource)
 {
-    auto[it, flag] = children.try_emplace(resource->get_name(), resource);
+    auto[it, flag] = m_children.try_emplace(resource->get_name(), resource);
     if (!flag) {
         throw AbstractResourceException("Cannot add resource.");
     }
@@ -34,13 +34,13 @@ void RootResource::add_resource(const std::shared_ptr<IResource>& resource)
 
 void RootResource::set_parent(IResource* resource)
 {
-    throw AbstractResourceException("Cannot set parent on RootResource.");
+    throw AbstractResourceException("Cannot set m_parent on RootResource.");
 }
 
 toml::value RootResource::as_toml() const
 {
     toml::table value;
-    for (const auto& it : children) {
+    for (const auto& it : m_children) {
         value[it.second->get_name()] = it.second->as_toml();
     }
     return value;

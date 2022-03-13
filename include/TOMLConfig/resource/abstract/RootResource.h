@@ -15,7 +15,7 @@ namespace config::resource {
 
 class RootResource : public IResource {
 private:
-    std::unordered_map<std::string, std::shared_ptr<IResource>> children;
+    std::unordered_map<std::string, std::shared_ptr<IResource>> m_children;
 
 public:
     RootResource();

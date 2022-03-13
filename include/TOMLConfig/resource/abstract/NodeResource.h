@@ -14,9 +14,9 @@ namespace config::resource {
 
 class NodeResource : public IResource {
 private:
-    std::string name;
-    IResource* parent = nullptr;
-    std::unordered_map<std::string, std::shared_ptr<IResource>> children;
+    std::string m_name;
+    IResource* m_parent = nullptr;
+    std::unordered_map<std::string, std::shared_ptr<IResource>> m_children;
 
 public:
     explicit NodeResource(const std::string& name);

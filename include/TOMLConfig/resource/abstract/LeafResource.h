@@ -13,8 +13,8 @@ namespace config::resource {
 
 class LeafResource : public IResource {
 private:
-    std::string name;
-    IResource* parent = nullptr;
+    std::string m_name;
+    IResource* m_parent = nullptr;
 
 public:
     explicit LeafResource(const std::string& name);

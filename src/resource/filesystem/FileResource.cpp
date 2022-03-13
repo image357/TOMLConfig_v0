@@ -8,6 +8,6 @@
 namespace config::resource {
 
 FileResource::FileResource(const std::string& filepath)
-        :LeafResource(toml_filepath_to_resource_name(filepath)) { }
+        :LeafResource(toml_filepath_to_resource_name(filepath)), m_filepath(filepath) { }
 
 }
