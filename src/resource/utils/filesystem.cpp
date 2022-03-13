@@ -12,7 +12,7 @@ std::string toml_filepath_to_resource_name(const std::string& filepath)
 {
     std::filesystem::path path(filepath);
     if (path.extension()!=".toml") {
-        throw FilesystemResourceException("Filetype has to be toml.");
+        throw FilesystemResourceException("File type has to be toml.");
     }
     auto filename = path.stem();
     return filename;
