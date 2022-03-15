@@ -19,7 +19,7 @@ void FilesystemResourceTreeTest::TearDown()
     Test::TearDown();
 }
 
-void FilesystemResourceTreeTest::assert_basic_toml(const toml::value& value)
+void FilesystemResourceTreeTest::assert_basic_toml(const toml::value& value) const
 {
     ASSERT_EQ(toml::find<int>(value, "a"), 1);
     ASSERT_EQ(toml::find<double>(value, "b"), 2.0);

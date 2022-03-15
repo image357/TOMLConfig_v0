@@ -18,7 +18,7 @@ protected:
     void SetUp() override;
     void TearDown() override;
 
-    void assert_basic_toml(const toml::value& value);
+    void assert_basic_toml(const toml::value& value) const;
 
     MockResource mock_resource;
     std::shared_ptr<MockResource> mock_resource_ptr;
