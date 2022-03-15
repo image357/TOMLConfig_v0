@@ -5,6 +5,7 @@
 #include "GlobalTest.h"
 #include <iostream>
 #include <toml.hpp>
+#include <filesystem>
 
 void GlobalTest::SetUp()
 {
@@ -63,4 +64,18 @@ TEST_F(GlobalTest, testVirtualDestructorChain)
         ASSERT_EQ(i, 3);
     }
     ASSERT_EQ(i, 1);
+}
+
+TEST_F(GlobalTest, scanDirectory)
+{
+    std::filesystem::path path(RESOURCE_PATH "example1");
+    std::filesystem::directory_iterator it(path);
+    std::vector<std::string> entries;
+    for (const auto& entry : it) {
+        entries.emplace_back(entry.path().filename());
+    }
+    ASSERT_EQ(entries.size(), 3);
+    ASSERT_NE(std::find(entries.begin(), entries.end(), ".gitkeep"), entries.end());
+    ASSERT_NE(std::find(entries.begin(), entries.end(), "default"), entries.end());
+    ASSERT_NE(std::find(entries.begin(), entries.end(), "overwrite"), entries.end());
 }
