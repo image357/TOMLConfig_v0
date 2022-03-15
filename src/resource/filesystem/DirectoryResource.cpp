@@ -35,6 +35,7 @@ void DirectoryResource::add_directory_resources()
         }
         if (entry.is_regular_file()) {
             if (entry.path().filename().string()[0]=='.') continue;
+            if (entry.path().extension()!=".toml") continue;
             auto temp = std::make_shared<FileResource>(entry.path().string());
             this->add_resource(temp);
             continue;
