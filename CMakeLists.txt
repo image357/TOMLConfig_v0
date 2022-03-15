@@ -22,6 +22,7 @@ add_library(
         src/resource/filesystem/FileResource.cpp include/TOMLConfig/resource/filesystem/FileResource.h
         src/resource/utils/filesystem.cpp src/resource/utils/filesystem.h
         include/TOMLConfig/resource/filesystem/FilesystemResourceException.h
+        src/resource/filesystem/DirectoryResource.cpp include/TOMLConfig/resource/filesystem/DirectoryResource.h
 )
 
 target_link_libraries(

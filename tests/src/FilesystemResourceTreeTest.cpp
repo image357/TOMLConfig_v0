@@ -7,6 +7,7 @@
 #include "resource/utils/filesystem.h"
 #include "TOMLConfig/resource/filesystem/FilesystemResourceException.h"
 #include "TOMLConfig/resource/filesystem/FileResource.h"
+#include "TOMLConfig/resource/filesystem/DirectoryResource.h"
 
 void FilesystemResourceTreeTest::SetUp()
 {
@@ -58,4 +59,9 @@ TEST_F(FilesystemResourceTreeTest, convertFileResourceToToml)
     FileResource resource(RESOURCE_PATH "basic.toml");
     toml::value value = resource.as_toml();
     assert_basic_toml(value);
+}
+
+TEST_F(FilesystemResourceTreeTest, constructDirectoryResource)
+{
+    DirectoryResource resource(RESOURCE_PATH "example1");
 }

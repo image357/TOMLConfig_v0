@@ -18,4 +18,20 @@ std::string toml_filepath_to_resource_name(const std::string& filepath)
     return filename;
 }
 
+std::string directory_path_to_resource_name(const std::string& directory_path)
+{
+    std::filesystem::path path(directory_path);
+    if (!std::filesystem::is_directory(path)) {
+        throw FilesystemResourceException("Path must be a directory.");
+    }
+    std::string directory_name;
+    if (path.has_filename()) {
+        return path.filename();
+    }
+    if (path.has_parent_path()) {
+        return path.parent_path().filename();
+    }
+    throw FilesystemResourceException("Invalid directory name.");
+}
+
 }
