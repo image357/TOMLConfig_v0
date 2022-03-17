@@ -74,7 +74,8 @@ TEST_F(GlobalTest, scanDirectory)
     for (const auto& entry : it) {
         entries.emplace_back(entry.path().filename());
     }
-    ASSERT_EQ(entries.size(), 3);
+    ASSERT_EQ(entries.size(), 4);
+    ASSERT_NE(std::find(entries.begin(), entries.end(), ".gitignore"), entries.end());
     ASSERT_NE(std::find(entries.begin(), entries.end(), ".gitkeep"), entries.end());
     ASSERT_NE(std::find(entries.begin(), entries.end(), "default"), entries.end());
     ASSERT_NE(std::find(entries.begin(), entries.end(), "overwrite"), entries.end());
