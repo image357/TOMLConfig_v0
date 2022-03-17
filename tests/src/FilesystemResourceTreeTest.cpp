@@ -65,3 +65,14 @@ TEST_F(FilesystemResourceTreeTest, constructDirectoryResource)
 {
     DirectoryResource resource(RESOURCE_PATH "example01");
 }
+
+TEST_F(FilesystemResourceTreeTest, convertDirectoryResourceExample01ToToml)
+{
+    DirectoryResource resource(RESOURCE_PATH "example01");
+    auto value = resource.as_toml();
+    ASSERT_EQ(value.size(), 2);
+    ASSERT_TRUE(value["default"].is_table());
+    ASSERT_TRUE(value["overwrite"].is_table());
+    assert_basic_toml(value["default"]["basic"]);
+    assert_basic_toml(value["overwrite"]["basic"]);
+}
