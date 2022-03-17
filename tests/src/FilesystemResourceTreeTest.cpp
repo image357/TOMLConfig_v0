@@ -76,6 +76,8 @@ TEST_F(FilesystemResourceTreeTest, convertDirectoryResourceExample01ToToml)
     ASSERT_EQ(value.size(), 2);
     ASSERT_TRUE(value["default"].is_table());
     ASSERT_TRUE(value["overwrite"].is_table());
+    ASSERT_EQ(value["default"].size(), 1);
+    ASSERT_EQ(value["overwrite"].size(), 1);
     assert_basic_toml(value["default"]["basic"]);
     assert_basic_toml(value["overwrite"]["basic"]);
 }
