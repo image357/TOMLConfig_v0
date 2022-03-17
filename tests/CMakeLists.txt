@@ -22,3 +22,5 @@ target_compile_definitions(
         PRIVATE
         RESOURCE_PATH=\"${CMAKE_CURRENT_SOURCE_DIR}/resources/\"
 )
+
+include(cmake/init_resources.cmake)

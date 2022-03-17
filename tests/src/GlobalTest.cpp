@@ -68,7 +68,7 @@ TEST_F(GlobalTest, testVirtualDestructorChain)
 
 TEST_F(GlobalTest, scanDirectory)
 {
-    std::filesystem::path path(RESOURCE_PATH "example1");
+    std::filesystem::path path(RESOURCE_PATH "example01");
     std::filesystem::directory_iterator it(path);
     std::vector<std::string> entries;
     for (const auto& entry : it) {

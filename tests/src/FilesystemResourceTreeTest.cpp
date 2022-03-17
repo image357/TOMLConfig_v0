@@ -63,5 +63,5 @@ TEST_F(FilesystemResourceTreeTest, convertFileResourceToToml)
 
 TEST_F(FilesystemResourceTreeTest, constructDirectoryResource)
 {
-    DirectoryResource resource(RESOURCE_PATH "example1");
+    DirectoryResource resource(RESOURCE_PATH "example01");
 }
