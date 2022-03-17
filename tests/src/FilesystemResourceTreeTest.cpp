@@ -63,7 +63,10 @@ TEST_F(FilesystemResourceTreeTest, convertFileResourceToToml)
 
 TEST_F(FilesystemResourceTreeTest, constructDirectoryResource)
 {
-    DirectoryResource resource(RESOURCE_PATH "example01");
+    DirectoryResource resource1(RESOURCE_PATH "example01");
+    DirectoryResource resource2(RESOURCE_PATH "example01/");
+    ASSERT_THROW(DirectoryResource resource3(RESOURCE_PATH "does_not_exist"), FilesystemResourceException);
+    ASSERT_THROW(DirectoryResource resource4(RESOURCE_PATH "basic.txt"), FilesystemResourceException);
 }
 
 TEST_F(FilesystemResourceTreeTest, convertDirectoryResourceExample01ToToml)
