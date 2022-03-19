@@ -20,6 +20,8 @@ public:
     explicit FileResource(const std::string& filepath);
 
     toml::value as_toml() const override;
+
+private:
     void parse_file();
 };
 

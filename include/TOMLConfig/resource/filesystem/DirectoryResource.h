@@ -17,6 +17,7 @@ private:
 public:
     explicit DirectoryResource(const std::string& directory_path);
 
+private:
     void add_directory_resources();
 };
 
