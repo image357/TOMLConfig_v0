@@ -9,6 +9,7 @@
 #include "TOMLConfig/resource/filesystem/FileResource.h"
 #include "TOMLConfig/resource/filesystem/DirectoryResource.h"
 #include "TOMLConfig/resource/filesystem/RootDirectoryResource.h"
+#include "TOMLConfig/resource/filesystem/RootFileResource.h"
 
 void FilesystemResourceTreeTest::SetUp()
 {
@@ -111,16 +112,43 @@ TEST_F(FilesystemResourceTreeTest, throwOnRootDirectoryResourceSetParent)
     ASSERT_THROW(root1_ptr->add_resource(root2_ptr), AbstractResourceException);
 }
 
+TEST_F(FilesystemResourceTreeTest, constructRootFileResource)
+{
+    RootFileResource resource1(RESOURCE_PATH "basic.toml");
+    RootFileResource resource2(RESOURCE_PATH "./basic.toml");
+    ASSERT_THROW(RootFileResource resource3(RESOURCE_PATH "does_not_exist.toml"), FilesystemResourceException);
+    ASSERT_THROW(RootFileResource resource4(RESOURCE_PATH "example01"), FilesystemResourceException);
+}
+
+TEST_F(FilesystemResourceTreeTest, convertRootFileResourceToToml)
+{
+    RootFileResource resource(RESOURCE_PATH "basic.toml");
+    auto value = resource.as_toml();
+    assert_basic_toml(value);
+}
+
+TEST_F(FilesystemResourceTreeTest, throwOnRootFileResourceSetParent)
+{
+    auto root1_ptr = std::make_shared<RootFileResource>(RESOURCE_PATH "basic.toml");
+    auto root2_ptr = std::make_shared<RootFileResource>(RESOURCE_PATH "basic.toml");
+    ASSERT_THROW(root1_ptr->add_resource(root2_ptr), AbstractResourceException);
+}
+
 TEST_F(FilesystemResourceTreeTest, testNameHandling)
 {
-    auto root_ptr1 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
-    auto root_ptr2 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01/");
-    auto root_ptr3 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01");
-    auto root_ptr4 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01/");
-    ASSERT_EQ(root_ptr1->get_name(), "");
-    ASSERT_EQ(root_ptr2->get_name(), "");
-    ASSERT_EQ(root_ptr3->get_name(), "");
-    ASSERT_EQ(root_ptr4->get_name(), "");
+    auto rootd_ptr1 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
+    auto rootd_ptr2 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01/");
+    auto rootd_ptr3 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01");
+    auto rootd_ptr4 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01/");
+    ASSERT_EQ(rootd_ptr1->get_name(), "");
+    ASSERT_EQ(rootd_ptr2->get_name(), "");
+    ASSERT_EQ(rootd_ptr3->get_name(), "");
+    ASSERT_EQ(rootd_ptr4->get_name(), "");
+
+    auto rootf_ptr1 = std::make_shared<RootFileResource>(RESOURCE_PATH "basic.toml");
+    auto rootf_ptr2 = std::make_shared<RootFileResource>(RESOURCE_PATH "./basic.toml");
+    ASSERT_EQ(rootf_ptr1->get_name(), "");
+    ASSERT_EQ(rootf_ptr2->get_name(), "");
 
     auto node_ptr1 = std::make_shared<DirectoryResource>(RESOURCE_PATH "example01");
     auto node_ptr2 = std::make_shared<DirectoryResource>(RESOURCE_PATH "example01/");
@@ -139,23 +167,28 @@ TEST_F(FilesystemResourceTreeTest, testNameHandling)
 
 TEST_F(FilesystemResourceTreeTest, testPathHandling)
 {
-    auto root_ptr1 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
-    auto root_ptr2 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01/");
-    auto root_ptr3 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01");
-    auto root_ptr4 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01/");
-    ASSERT_EQ(root_ptr1->get_path(), "/");
-    ASSERT_EQ(root_ptr2->get_path(), "/");
-    ASSERT_EQ(root_ptr3->get_path(), "/");
-    ASSERT_EQ(root_ptr4->get_path(), "/");
+    auto rootd_ptr1 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
+    auto rootd_ptr2 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01/");
+    auto rootd_ptr3 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01");
+    auto rootd_ptr4 = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "./example01/");
+    ASSERT_EQ(rootd_ptr1->get_path(), "/");
+    ASSERT_EQ(rootd_ptr2->get_path(), "/");
+    ASSERT_EQ(rootd_ptr3->get_path(), "/");
+    ASSERT_EQ(rootd_ptr4->get_path(), "/");
+
+    auto rootf_ptr1 = std::make_shared<RootFileResource>(RESOURCE_PATH "basic.toml");
+    auto rootf_ptr2 = std::make_shared<RootFileResource>(RESOURCE_PATH "./basic.toml");
+    ASSERT_EQ(rootf_ptr1->get_path(), "/");
+    ASSERT_EQ(rootf_ptr2->get_path(), "/");
 
     auto node_ptr1 = std::make_shared<DirectoryResource>(RESOURCE_PATH "example01");
-    root_ptr1->add_resource(node_ptr1);
+    rootd_ptr1->add_resource(node_ptr1);
     auto node_ptr2 = std::make_shared<DirectoryResource>(RESOURCE_PATH "example01/");
-    root_ptr2->add_resource(node_ptr2);
+    rootd_ptr2->add_resource(node_ptr2);
     auto node_ptr3 = std::make_shared<DirectoryResource>(RESOURCE_PATH "./example01");
-    root_ptr3->add_resource(node_ptr3);
+    rootf_ptr1->add_resource(node_ptr3);
     auto node_ptr4 = std::make_shared<DirectoryResource>(RESOURCE_PATH "./example01/");
-    root_ptr4->add_resource(node_ptr4);
+    rootf_ptr2->add_resource(node_ptr4);
     ASSERT_EQ(node_ptr1->get_path(), "/example01/");
     ASSERT_EQ(node_ptr2->get_path(), "/example01/");
     ASSERT_EQ(node_ptr3->get_path(), "/example01/");
@@ -166,9 +199,9 @@ TEST_F(FilesystemResourceTreeTest, testPathHandling)
     auto leaf_ptr2 = std::make_shared<FileResource>(RESOURCE_PATH "./basic.toml");
     node_ptr2->add_resource(leaf_ptr2);
     auto leaf_ptr3 = std::make_shared<FileResource>(RESOURCE_PATH "basic.toml");
-    root_ptr3->add_resource(leaf_ptr3);
+    rootd_ptr3->add_resource(leaf_ptr3);
     auto leaf_ptr4 = std::make_shared<FileResource>(RESOURCE_PATH "./basic.toml");
-    root_ptr4->add_resource(leaf_ptr4);
+    rootf_ptr1->add_resource(leaf_ptr4);
     ASSERT_EQ(leaf_ptr1->get_path(), "/example01/basic");
     ASSERT_EQ(leaf_ptr2->get_path(), "/example01/basic");
     ASSERT_EQ(leaf_ptr3->get_path(), "/basic");
@@ -177,8 +210,11 @@ TEST_F(FilesystemResourceTreeTest, testPathHandling)
 
 TEST_F(FilesystemResourceTreeTest, testTypeHandling)
 {
-    auto root_ptr = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
-    ASSERT_EQ(root_ptr->get_type(), ResourceType::Root);
+    auto rootd_ptr = std::make_shared<RootDirectoryResource>(RESOURCE_PATH "example01");
+    ASSERT_EQ(rootd_ptr->get_type(), ResourceType::Root);
+
+    auto rootf_ptr = std::make_shared<RootFileResource>(RESOURCE_PATH "basic.toml");
+    ASSERT_EQ(rootf_ptr->get_type(), ResourceType::Root);
 
     auto node_ptr = std::make_shared<DirectoryResource>(RESOURCE_PATH "example01");
     ASSERT_EQ(node_ptr->get_type(), ResourceType::Node);
