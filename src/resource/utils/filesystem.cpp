@@ -8,7 +8,7 @@
 
 namespace config::resource {
 
-std::string toml_filepath_to_resource_name(const std::string& filepath)
+std::string toml_file_path_to_resource_name(const std::string& filepath)
 {
     std::filesystem::path path(filepath);
     if (path.extension()!=".toml") {

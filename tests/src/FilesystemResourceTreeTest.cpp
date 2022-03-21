@@ -44,8 +44,8 @@ void FilesystemResourceTreeTest::assert_basic_toml(const toml::value& value) con
 
 TEST_F(FilesystemResourceTreeTest, convertFilepathToName)
 {
-    ASSERT_EQ(toml_filepath_to_resource_name("/some/path/to/file.toml"), "file");
-    ASSERT_THROW(toml_filepath_to_resource_name("/some/path/to/file.txt"), FilesystemResourceException);
+    ASSERT_EQ(toml_file_path_to_resource_name("/some/path/to/file.toml"), "file");
+    ASSERT_THROW(toml_file_path_to_resource_name("/some/path/to/file.txt"), FilesystemResourceException);
 }
 
 TEST_F(FilesystemResourceTreeTest, constructFileResource)

@@ -13,11 +13,11 @@ namespace config::resource {
 
 class FileResource : public LeafResource {
 private:
-    std::filesystem::path m_filepath;
+    std::filesystem::path m_file_path;
     toml::value m_toml_content;
 
 public:
-    explicit FileResource(const std::string& filepath);
+    explicit FileResource(const std::string& file_path);
 
     toml::value as_toml() const override;
 
