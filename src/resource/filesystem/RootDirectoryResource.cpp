@@ -3,15 +3,14 @@
 //
 
 #include "TOMLConfig/resource/filesystem/RootDirectoryResource.h"
+#include "TOMLConfig/resource/filesystem/FilesystemResourceException.h"
 
 namespace config::resource {
 
 RootDirectoryResource::RootDirectoryResource(const std::string& directory_path)
-        :RootResource(), m_directory_resource(directory_path) { }
-
-toml::value RootDirectoryResource::as_toml() const
+        :RootResource(), m_directory_resource(std::make_shared<DirectoryResource>(directory_path))
 {
-    return m_directory_resource.as_toml();
+    add_resource(m_directory_resource);
 }
 
 }

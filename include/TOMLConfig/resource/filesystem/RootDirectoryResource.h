@@ -7,17 +7,16 @@
 
 #include "TOMLConfig/resource/abstract/RootResource.h"
 #include "DirectoryResource.h"
+#include <memory>
 
 namespace config::resource {
 
 class RootDirectoryResource : public RootResource {
 private:
-    DirectoryResource m_directory_resource;
+    std::shared_ptr<DirectoryResource> m_directory_resource;
 
 public:
     explicit RootDirectoryResource(const std::string& directory_path);
-
-    toml::value as_toml() const override;
 };
 
 }

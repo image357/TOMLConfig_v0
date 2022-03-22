@@ -6,12 +6,10 @@
 
 namespace config::resource {
 
-RootFileResource::RootFileResource(const std::string& filepath)
-        :RootResource(), file_resource(filepath) { }
-
-toml::value RootFileResource::as_toml() const
+RootFileResource::RootFileResource(const std::string& file_path)
+        :RootResource(), m_file_resource(std::make_shared<FileResource>(file_path))
 {
-    return file_resource.as_toml();
+    add_resource(m_file_resource);
 }
 
 }
