@@ -25,6 +25,8 @@ add_library(
         src/resource/filesystem/DirectoryResource.cpp include/TOMLConfig/resource/filesystem/DirectoryResource.h
         src/resource/filesystem/RootDirectoryResource.cpp include/TOMLConfig/resource/filesystem/RootDirectoryResource.h
         src/resource/filesystem/RootFileResource.cpp include/TOMLConfig/resource/filesystem/RootFileResource.h
+        include/TOMLConfig/merge/IMerger.h
+        src/merge/BasicMerger.cpp include/TOMLConfig/merge/BasicMerger.h
 )
 
 target_link_libraries(
