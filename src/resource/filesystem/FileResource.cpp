@@ -14,6 +14,9 @@ FileResource::FileResource(const std::string& file_path)
     if (!std::filesystem::exists(m_file_path)) {
         throw FilesystemResourceException(m_file_path.string()+" does not exist.");
     }
+    if (!std::filesystem::is_regular_file(m_file_path)) {
+        throw FilesystemResourceException("Path must be a file.");
+    }
     if (m_file_path.extension()!=".toml") {
         throw FilesystemResourceException("File type has to be toml.");
     }

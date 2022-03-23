@@ -43,16 +43,24 @@ void FilesystemResourceTreeTest::assert_basic_toml(const toml::value& value) con
     ASSERT_EQ(toml::find<std::string>(subtable1, "f"), "ccc");
 }
 
-TEST_F(FilesystemResourceTreeTest, convertFilepathToName)
+TEST_F(FilesystemResourceTreeTest, convertFilePathToName)
 {
+    ASSERT_EQ(toml_file_path_to_resource_name("/some/path/to/file"), "file");
     ASSERT_EQ(toml_file_path_to_resource_name("/some/path/to/file.toml"), "file");
-    ASSERT_THROW(toml_file_path_to_resource_name("/some/path/to/file.txt"), FilesystemResourceException);
+    ASSERT_EQ(toml_file_path_to_resource_name("/some/path/to/file.txt"), "file");
+}
+
+TEST_F(FilesystemResourceTreeTest, convertDirectoryPathToName)
+{
+    ASSERT_EQ(directory_path_to_resource_name("/some/path/to/directory"), "directory");
+    ASSERT_EQ(directory_path_to_resource_name("/some/path/to/directory/"), "directory");
 }
 
 TEST_F(FilesystemResourceTreeTest, constructFileResource)
 {
     FileResource resource1(RESOURCE_PATH "basic.toml");
-    ASSERT_THROW(FileResource resource2("/some/path/to/file.toml"), FilesystemResourceException);
+    ASSERT_THROW(FileResource resource2(RESOURCE_PATH "does_not_exist.toml"), FilesystemResourceException);
+    ASSERT_THROW(FileResource resource3(RESOURCE_PATH "example01"), FilesystemResourceException);
     ASSERT_THROW(FileResource resource3(RESOURCE_PATH "basic.txt"), FilesystemResourceException);
 }
 
@@ -68,7 +76,7 @@ TEST_F(FilesystemResourceTreeTest, constructDirectoryResource)
     DirectoryResource resource1(RESOURCE_PATH "example01");
     DirectoryResource resource2(RESOURCE_PATH "example01/");
     ASSERT_THROW(DirectoryResource resource3(RESOURCE_PATH "does_not_exist"), FilesystemResourceException);
-    ASSERT_THROW(DirectoryResource resource4(RESOURCE_PATH "basic.txt"), FilesystemResourceException);
+    ASSERT_THROW(DirectoryResource resource4(RESOURCE_PATH "basic.toml"), FilesystemResourceException);
 }
 
 TEST_F(FilesystemResourceTreeTest, convertDirectoryResourceExample01ToToml)
