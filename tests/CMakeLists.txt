@@ -7,7 +7,7 @@ add_executable(
         mocks/MockResource.h
         src/AbstractResourceTreeTest.cpp src/AbstractResourceTreeTest.h
         src/FilesystemResourceTreeTest.cpp src/FilesystemResourceTreeTest.h
-        src/MergerTest.cpp src/MergerTest.h
+        src/BasicMergerTest.cpp src/BasicMergerTest.h
 )
 
 target_link_libraries(

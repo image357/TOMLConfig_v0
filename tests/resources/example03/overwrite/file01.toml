@@ -1,0 +1,8 @@
+a = 1
+b = 2.0
+c = "string"
+
+[table1]
+a = 3
+b = 4.0
+c = "table1.string"
