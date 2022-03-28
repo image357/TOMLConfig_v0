@@ -40,3 +40,13 @@ TEST_F(BasicMergerTest, mergeExample03File02)
     auto merged_toml = merger.merge();
     ASSERT_EQ(merged_toml, expected_toml);
 }
+
+TEST_F(BasicMergerTest, mergeExample03File03)
+{
+    auto default_toml = toml::parse(RESOURCE_PATH "example03/default/file03.toml");
+    auto overwrite_toml = toml::parse(RESOURCE_PATH "example03/overwrite/file03.toml");
+    auto expected_toml = toml::parse(RESOURCE_PATH "example03/expected/file03.toml");
+    BasicMerger merger(default_toml, overwrite_toml);
+    auto merged_toml = merger.merge();
+    ASSERT_EQ(merged_toml, expected_toml);
+}
