@@ -8,5 +8,5 @@ b = 2
 [e]
 a = 2
 b = [3, 4, 5]
-c = {"some" = 6, "table" = 7}
+c = { "some" = 6, "table" = 7 }
 d = 8
