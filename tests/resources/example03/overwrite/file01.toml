@@ -1,8 +1,52 @@
 a = 1
 b = 2.0
 c = "string"
+d = [3, 4.0, "array"]
 
 [table1]
-a = 3
-b = 4.0
+a = 5
+b = 6.0
 c = "table1.string"
+d = [7, 8.0, "table1.array"]
+
+[table1.subtable1]
+a = 9
+b = 10.0
+c = "table1.subtable1.string"
+d = [11, 12.0, "table1.subtable1.array"]
+
+[table1.subtable2]
+a = 13
+b = 14.0
+c = "table1.subtable2.string"
+d = [15, 16.0, "table1.subtable2.array"]
+
+[table2]
+a = 17
+b = 18.0
+c = "table2.string"
+d = [19, 20.0, "table2.array"]
+
+[table2.subtable1]
+a = 21
+b = 22.0
+c = "table2.subtable1.string"
+d = [23, 24.0, "table2.subtable1.array"]
+
+[table2.subtable2]
+a = 25
+b = 26.0
+c = "table2.subtable2.string"
+d = [27, 28.0, "table2.subtable2.array"]
+
+[[tablearray]]
+a = 29
+b = 30.0
+c = "tablearray1.string"
+d = [31, 32.0, "tablearray1.array"]
+
+[[tablearray]]
+a = 33
+b = 34.0
+c = "tablearray2.string"
+d = [35, 36.0, "tablearray2.array"]

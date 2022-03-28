@@ -3,6 +3,7 @@ project(TOMLConfig VERSION 1.0.0)
 
 # dependencies
 find_package(toml11 REQUIRED)
+find_package(spdlog REQUIRED)
 find_package(GTest REQUIRED)
 
 # submodules
@@ -33,6 +34,7 @@ target_link_libraries(
         TOMLConfig
         PUBLIC
         toml11::toml11
+        spdlog::spdlog
 )
 
 include(GNUInstallDirs)
