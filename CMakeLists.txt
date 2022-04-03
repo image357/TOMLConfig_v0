@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
+include(cmake/get_cmake_args.cmake)
 project(TOMLConfig VERSION 1.0.0)
 
 # dependencies
+include(cmake/add_external_package.cmake)
+
+add_external_package(toml11 CMAKE_ARGS ${CMAKE_ARGS} FORCE)
 find_package(toml11 REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(GTest REQUIRED)
