@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
-include(cmake/get_cmake_args.cmake)
+include(cmake/utils/get_cmake_args.cmake)
 project(TOMLConfig VERSION 1.0.0)
 
 # dependencies
-include(cmake/add_external_package.cmake)
+include(cmake/utils/add_external_package.cmake)
 
 add_external_package(toml11 CMAKE_ARGS ${CMAKE_ARGS})
 find_package(toml11 REQUIRED)
