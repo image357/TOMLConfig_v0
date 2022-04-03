@@ -5,9 +5,11 @@ project(TOMLConfig VERSION 1.0.0)
 # dependencies
 include(cmake/add_external_package.cmake)
 
-add_external_package(toml11 CMAKE_ARGS ${CMAKE_ARGS} FORCE)
+add_external_package(toml11 CMAKE_ARGS ${CMAKE_ARGS})
 find_package(toml11 REQUIRED)
+add_external_package(spdlog CMAKE_ARGS ${CMAKE_ARGS})
 find_package(spdlog REQUIRED)
+add_external_package(GTest CMAKE_ARGS ${CMAKE_ARGS})
 find_package(GTest REQUIRED)
 
 # submodules

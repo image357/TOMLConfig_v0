@@ -44,15 +44,17 @@ function(add_external_package)
     endif ()
 
     # check if package is already installed
-    if (${_add_external_package_arg_EXACT})
-        find_package(${_add_external_package_arg_NAME} ${_add_external_package_arg_VERSION} EXACT QUIET)
-    else ()
-        find_package(${_add_external_package_arg_NAME} ${_add_external_package_arg_VERSION} QUIET)
-    endif ()
+    if (NOT "${_add_external_package_arg_FORCE}")
+        if (${_add_external_package_arg_EXACT})
+            find_package(${_add_external_package_arg_NAME} ${_add_external_package_arg_VERSION} EXACT QUIET)
+        else ()
+            find_package(${_add_external_package_arg_NAME} ${_add_external_package_arg_VERSION} QUIET)
+        endif ()
 
-    if (NOT "${_add_external_package_arg_FORCE}" AND "${${_add_external_package_arg_NAME}_FOUND}")
-        message(STATUS "Using global installation of ${_add_external_package_arg_NAME}")
-        return()
+        if ("${${_add_external_package_arg_NAME}_FOUND}")
+            message(STATUS "Using global installation of ${_add_external_package_arg_NAME}")
+            return()
+        endif ()
     endif ()
     message(STATUS "Preparing local installation of ${_add_external_package_arg_NAME}")
 
@@ -115,11 +117,12 @@ function(add_external_package)
                 RESULT_VARIABLE
                 _add_external_package_install_result
         )
-        set(_add_external_package_cmake_prefix_path ${CMAKE_PREFIX_PATH})
-        list(PREPEND _add_external_package_cmake_prefix_path "${_add_external_package_arg_INSTALL_DIR}")
-        set(CMAKE_PREFIX_PATH ${_add_external_package_cmake_prefix_path} PARENT_SCOPE)
+        set("${_add_external_package_arg_NAME}_ROOT" ${_add_external_package_arg_INSTALL_DIR} PARENT_SCOPE)
     endif ()
     if (NOT ${_add_external_package_install_result} EQUAL 0)
         message(FATAL_ERROR "Cannot install external package")
     endif ()
+
+    # done
+    message(STATUS "Local installation of ${_add_external_package_arg_NAME} - done")
 endfunction()

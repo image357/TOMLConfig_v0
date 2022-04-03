@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 include(../../cmake/get_cmake_args.cmake)
-project(external_toml11)
+project(external_GTest)
 
 include(ExternalProject)
 ExternalProject_Add(
         external
-        GIT_REPOSITORY git@github.com:ToruNiina/toml11.git
-        GIT_TAG master
+        GIT_REPOSITORY git@github.com:google/googletest.git
+        GIT_TAG main
         CMAKE_ARGS ${CMAKE_ARGS}
 
         INSTALL_COMMAND
