@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-include(../../cmake/get_cmake_args.cmake)
+include(../../cmake/utils/get_cmake_args.cmake)
 project(external_toml11)
 
 include(ExternalProject)
@@ -8,11 +8,4 @@ ExternalProject_Add(
         GIT_REPOSITORY git@github.com:ToruNiina/toml11.git
         GIT_TAG master
         CMAKE_ARGS ${CMAKE_ARGS}
-
-        INSTALL_COMMAND
-        "${CMAKE_COMMAND}"
-        "--install"
-        "${CMAKE_CURRENT_BINARY_DIR}/external-prefix/src/external-build"
-        "--prefix"
-        "${CMAKE_CURRENT_BINARY_DIR}/../install"
 )
